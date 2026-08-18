@@ -1,15 +1,18 @@
 'use client';
 
 // src/app/equipos/page.tsx
-// Página de gestión de equipos: tabla + formulario de add/edit.
+// Página de gestión de equipos: tabla + formulario + aviso de torneo activo + modelo explicativo.
 
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import Typography from '@mui/material/Typography';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useTournamentContext } from '@/app/tournament-context';
+import ModelInfoCard from '@/components/common/ModelInfoCard';
 import AppLayout from '@/components/layout/AppLayout';
 import TeamFormDialog from '@/components/tournament/TeamFormDialog';
 import TeamTable from '@/components/tournament/TeamTable';
@@ -19,7 +22,7 @@ import type { Team, TournamentConfig } from '@/core/models/types';
 export default function EquiposPage() {
   const {
     teams: { teams, addTeam, updateTeam, removeTeam, resetToDefaults },
-    tournament: { startTournament },
+    tournament: { state, isStarted, startTournament },
   } = useTournamentContext();
   const router = useRouter();
 
@@ -61,6 +64,8 @@ export default function EquiposPage() {
     router.push('/simulacion');
   };
 
+  const completedMatchesCount = state?.matches.filter((m) => m.status === 'completed').length ?? 0;
+
   return (
     <AppLayout>
       <Box sx={{ maxWidth: 1000, mx: 'auto' }}>
@@ -72,6 +77,28 @@ export default function EquiposPage() {
             Configurá los equipos, sus ratings y luego iniciá el torneo desde el panel inferior.
           </Typography>
         </Box>
+
+        {/* Aviso de torneo en curso */}
+        {isStarted && state && (
+          <Alert
+            severity="info"
+            sx={{ mb: 3 }}
+            action={
+              <Button
+                component={Link}
+                href="/simulacion"
+                color="inherit"
+                size="small"
+                variant="outlined"
+              >
+                Ir a Simulación Activa
+              </Button>
+            }
+          >
+            <strong>⚽ Torneo en curso:</strong> Fecha {state.currentRound} de {state.totalRounds} (
+            {completedMatchesCount} partidos jugados).
+          </Alert>
+        )}
 
         {teams.length < 4 && (
           <Alert severity="warning" sx={{ mb: 3 }}>
@@ -91,8 +118,17 @@ export default function EquiposPage() {
           />
         </Box>
 
+        {/* Explicación del Modelo de Simulación */}
+        <Box sx={{ mb: 4 }}>
+          <ModelInfoCard />
+        </Box>
+
         {/* Panel de configuración del torneo */}
-        <TournamentConfigPanel teams={teams} onStart={handleStartTournament} />
+        <TournamentConfigPanel
+          teams={teams}
+          isStarted={isStarted}
+          onStart={handleStartTournament}
+        />
 
         {/* Dialog add/edit */}
         <TeamFormDialog

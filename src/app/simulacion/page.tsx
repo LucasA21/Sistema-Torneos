@@ -1,7 +1,7 @@
 'use client';
 
 // src/app/simulacion/page.tsx
-// Página de simulación paso a paso.
+// Página de simulación paso a paso con notificación de Campeón.
 
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
@@ -10,8 +10,10 @@ import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { useTournamentContext } from '@/app/tournament-context';
 import AppLayout from '@/components/layout/AppLayout';
+import ChampionDialog from '@/components/simulation/ChampionDialog';
 import RoundPanel from '@/components/simulation/RoundPanel';
 import SimulationControls from '@/components/simulation/SimulationControls';
 import StandingsTable from '@/components/simulation/StandingsTable';
@@ -22,6 +24,15 @@ export default function SimulacionPage() {
     teams: { teams },
     tournament: { state, isStarted, simulateMatch, simulateRound, simulateAll, reset },
   } = useTournamentContext();
+
+  const [championDialogOpen, setChampionDialogOpen] = useState(false);
+
+  // Cuando el torneo se completa, abrimos automáticamente el modal de coronación
+  useEffect(() => {
+    if (state?.isComplete) {
+      setChampionDialogOpen(true);
+    }
+  }, [state?.isComplete]);
 
   if (!isStarted || !state) {
     return (
@@ -37,7 +48,7 @@ export default function SimulacionPage() {
             gap: 3,
           }}
         >
-          <Typography variant="h4" sx={{ fontWeight: 900 }}>
+          <Typography variant="h4" sx={{ fontWeight: 900, color: 'text.primary' }}>
             ⚽ No hay torneo activo
           </Typography>
           <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 400 }}>
@@ -59,6 +70,10 @@ export default function SimulacionPage() {
   }
 
   const progress = getTournamentProgress(state);
+  const championTeam =
+    state.isComplete && state.standings.length > 0
+      ? teams.find((t) => t.id === state.standings[0].teamId)
+      : null;
 
   return (
     <AppLayout>
@@ -72,6 +87,26 @@ export default function SimulacionPage() {
           fechas • {state.matches.length} partidos totales
         </Typography>
       </Box>
+
+      {state.isComplete && championTeam && (
+        <Alert
+          severity="success"
+          sx={{ mb: 3, borderRadius: 2 }}
+          action={
+            <Button
+              color="inherit"
+              size="small"
+              variant="outlined"
+              onClick={() => setChampionDialogOpen(true)}
+            >
+              Ver Resumen
+            </Button>
+          }
+        >
+          <strong>¡Torneo Finalizado!</strong> El campeón es <strong>{championTeam.name}</strong>{' '}
+          con {state.standings[0].points} Pts.
+        </Alert>
+      )}
 
       <Grid container spacing={3}>
         {/* Columna izquierda: controles + tabla de posiciones */}
@@ -104,7 +139,7 @@ export default function SimulacionPage() {
 
         {/* Columna derecha: partidos */}
         <Grid size={{ xs: 12, lg: 8 }}>
-          <Typography variant="h6" sx={{ fontWeight: 700 }} gutterBottom>
+          <Typography variant="h6" sx={{ fontWeight: 700, color: 'text.primary' }} gutterBottom>
             Partidos
           </Typography>
 
@@ -115,6 +150,16 @@ export default function SimulacionPage() {
           )}
         </Grid>
       </Grid>
+
+      {/* Modal de Coronación del Campeón */}
+      <ChampionDialog
+        open={championDialogOpen}
+        standings={state.standings}
+        teams={teams}
+        config={state.config}
+        onClose={() => setChampionDialogOpen(false)}
+        onReset={reset}
+      />
     </AppLayout>
   );
 }

@@ -1,7 +1,7 @@
 'use client';
 
 // src/components/tournament/TournamentConfig.tsx
-// Panel de configuración para iniciar un torneo.
+// Panel de configuración para iniciar un torneo con confirmación de reemplazo.
 
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import Alert from '@mui/material/Alert';
@@ -9,6 +9,10 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
@@ -22,19 +26,23 @@ import { SIMULATION_DEFAULTS } from '@/core/models/types';
 
 interface TournamentConfigProps {
   teams: Team[];
+  isStarted?: boolean;
   onStart: (config: TournamentConfig) => void;
 }
 
-export default function TournamentConfigPanel({ teams, onStart }: TournamentConfigProps) {
+export default function TournamentConfigPanel({
+  teams,
+  isStarted = false,
+  onStart,
+}: TournamentConfigProps) {
   const [format, setFormat] = useState<TournamentFormat>('single');
   const [championsZone, setChampionsZone] = useState(4);
   const [relegationZone, setRelegationZone] = useState(3);
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   const canStart = teams.length >= 4;
 
-  const handleStart = () => {
-    if (!canStart) return;
-
+  const executeStart = () => {
     const config: TournamentConfig = {
       teams,
       format,
@@ -46,6 +54,16 @@ export default function TournamentConfigPanel({ teams, onStart }: TournamentConf
     };
 
     onStart(config);
+    setConfirmOpen(false);
+  };
+
+  const handleStartClick = () => {
+    if (!canStart) return;
+    if (isStarted) {
+      setConfirmOpen(true);
+    } else {
+      executeStart();
+    }
   };
 
   const totalMatches =
@@ -160,15 +178,33 @@ export default function TournamentConfigPanel({ teams, onStart }: TournamentConf
           variant="contained"
           size="large"
           startIcon={<PlayArrowIcon />}
-          onClick={handleStart}
+          onClick={handleStartClick}
           disabled={!canStart}
           fullWidth
           aria-label="iniciar simulación del torneo"
           sx={{ py: 1.5 }}
+          color={isStarted ? 'warning' : 'primary'}
         >
-          Iniciar Torneo
+          {isStarted ? 'Iniciar Nuevo Torneo (Reiniciar)' : 'Iniciar Torneo'}
         </Button>
       </CardContent>
+
+      {/* Diálogo de confirmación cuando ya hay un torneo iniciado */}
+      <Dialog open={confirmOpen} onClose={() => setConfirmOpen(false)}>
+        <DialogTitle>⚠️ ¿Reemplazar torneo en curso?</DialogTitle>
+        <DialogContent>
+          <Typography variant="body2">
+            Actualmente tenés una simulación iniciada. Si continuás, el progreso actual del torneo
+            se descartará y se generará un nuevo fixture desde cero.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setConfirmOpen(false)}>Cancelar</Button>
+          <Button variant="contained" color="warning" onClick={executeStart}>
+            Sí, Iniciar Nuevo
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Card>
   );
 }

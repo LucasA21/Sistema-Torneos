@@ -3,7 +3,7 @@
 // src/components/layout/Sidebar.tsx
 // Navegación lateral con links a las secciones principales.
 
-import BarChartIcon from '@mui/icons-material/BarChart';
+// import BarChartIcon from '@mui/icons-material/BarChart';
 import GroupIcon from '@mui/icons-material/Group';
 import HomeIcon from '@mui/icons-material/Home';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
@@ -25,7 +25,7 @@ const NAV_ITEMS = [
   { label: 'Inicio', href: '/', icon: <HomeIcon /> },
   { label: 'Equipos', href: '/equipos', icon: <GroupIcon /> },
   { label: 'Simulación', href: '/simulacion', icon: <PlayCircleIcon /> },
-  { label: 'Simulación Masiva', href: '/montecarlo', icon: <BarChartIcon /> },
+  // Oculto: { label: 'Simulación Masiva', href: '/montecarlo', icon: <BarChartIcon /> },
 ];
 
 interface SidebarProps {
