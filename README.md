@@ -75,3 +75,12 @@ just docker-up
 # Detener contenedor
 just docker-down
 ```
+
+---
+
+## 📚 Documentación del Modelo
+
+- 📖 [Explicación Sencilla del Modelo (para usuarios)](file:///home/lk/Proyectos/Sistema-Torneos/docs/05_explicacion_sencilla_del_modelo.md)
+- 📐 [Especificación Matemática Formal](file:///home/lk/Proyectos/Sistema-Torneos/docs/02_especificacion_del_modelo.md)
+- ⚙️ [Mecánica de Simulación](file:///home/lk/Proyectos/Sistema-Torneos/docs/03_mecanica_de_simulacion.md)
+

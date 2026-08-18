@@ -9,7 +9,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import RestoreIcon from '@mui/icons-material/Restore';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Chip from '@mui/material/Chip';
 import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import Slider from '@mui/material/Slider';
@@ -30,13 +29,6 @@ interface TeamTableProps {
   onAdd: () => void;
   onReset: () => void;
   onRatingChange: (id: string, rating: number) => void;
-}
-
-function getRatingColor(rating: number): 'success' | 'warning' | 'error' | 'default' {
-  if (rating >= 80) return 'success';
-  if (rating >= 65) return 'warning';
-  if (rating >= 50) return 'default';
-  return 'error';
 }
 
 export default function TeamTable({
@@ -90,7 +82,6 @@ export default function TeamTable({
               <TableCell>Equipo</TableCell>
               <TableCell sx={{ minWidth: 80 }}>Sigla</TableCell>
               <TableCell sx={{ minWidth: 200 }}>Rating (habilidad)</TableCell>
-              <TableCell>Nivel</TableCell>
               <TableCell align="right">Acciones</TableCell>
             </TableRow>
           </TableHead>
@@ -161,24 +152,6 @@ export default function TeamTable({
                   </Box>
                 </TableCell>
 
-                {/* Chip de nivel */}
-                <TableCell>
-                  <Chip
-                    label={
-                      team.rating >= 80
-                        ? 'Elite'
-                        : team.rating >= 65
-                          ? 'Alto'
-                          : team.rating >= 50
-                            ? 'Medio'
-                            : 'Bajo'
-                    }
-                    color={getRatingColor(team.rating)}
-                    size="small"
-                    variant="outlined"
-                  />
-                </TableCell>
-
                 {/* Acciones */}
                 <TableCell align="right">
                   <Tooltip title="Editar equipo">
@@ -206,7 +179,7 @@ export default function TeamTable({
 
             {teams.length === 0 && (
               <TableRow>
-                <TableCell colSpan={5} align="center" sx={{ py: 6 }}>
+                <TableCell colSpan={4} align="center" sx={{ py: 6 }}>
                   <Typography color="text.secondary">
                     No hay equipos configurados. Agregá al menos 4 equipos para comenzar.
                   </Typography>
