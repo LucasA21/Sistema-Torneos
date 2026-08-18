@@ -5,13 +5,14 @@
 default:
     @just --list
 
-# Realizar el setup inicial del proyecto (crear .env, instalar dependencias)
+# Realizar el setup inicial del proyecto (crear .env y docker/.env, instalar dependencias)
 setup:
     @echo "⚙️ Configurando el entorno del proyecto..."
     @if [ ! -f .env ]; then cp .env.example .env && echo "✅ Archivo .env creado desde .env.example"; else echo "ℹ️ El archivo .env ya existe"; fi
+    @if [ ! -f docker/.env ]; then cp docker/.env.example docker/.env && echo "✅ Archivo docker/.env creado desde docker/.env.example"; else echo "ℹ️ El archivo docker/.env ya existe"; fi
     @echo "📦 Instalando dependencias de Node.js..."
     npm install
-    @echo "🎉 Setup completado. Ejecuta 'just dev' para iniciar el servidor."
+    @echo "🎉 Setup completado. Ejecutá 'just dev' para iniciar el servidor."
 
 # Iniciar servidor de desarrollo Next.js
 dev:
@@ -21,7 +22,7 @@ dev:
 stop:
     @echo "🛑 Apagando la aplicación en el puerto 3000..."
     @fuser -k 3000/tcp 2>/dev/null || true
-    @echo "✅ Aplicación apaga/detenida."
+    @echo "✅ Aplicación apagada/detenida."
 
 # Compilar la aplicación para producción
 build:
@@ -48,10 +49,11 @@ check: typecheck lint
 
 # Limpiar caché de Next.js, node_modules y package-lock
 clean:
-    rm -rf .next node_modules package-lock.json .env
+    rm -rf .next node_modules package-lock.json .env docker/.env
 
 # Levantar entorno contenerizado con Docker Compose (modo desarrollo)
 docker-up:
+    @if [ ! -f docker/.env ]; then cp docker/.env.example docker/.env && echo "✅ Archivo docker/.env creado desde docker/.env.example"; fi
     docker compose -f docker/docker-compose.yml up --build -d
 
 # Detener entorno Docker
