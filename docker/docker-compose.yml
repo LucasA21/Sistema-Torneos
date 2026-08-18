@@ -1,0 +1,19 @@
+services:
+  app:
+    build:
+      context: ..          # Raíz del proyecto (un nivel arriba de docker/)
+      dockerfile: docker/Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      # Hot-reload: montar src/ y public/ para reflejar cambios sin rebuild
+      - ../src:/app/src
+      - ../public:/app/public
+      - /app/node_modules  # Excluir node_modules del host
+      - /app/.next         # Excluir .next del host
+    environment:
+      - NODE_ENV=development
+      - WATCHPACK_POLLING=true  # Necesario en algunos entornos Docker
+    env_file:
+      - ../.env            # Variables de entorno del proyecto
+    restart: unless-stopped
