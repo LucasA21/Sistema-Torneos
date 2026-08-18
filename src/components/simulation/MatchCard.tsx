@@ -56,7 +56,7 @@ function TeamName({ team, align }: { team: Team; align: 'left' | 'right' }) {
         >
           <Typography
             variant="caption"
-            sx={{ color: '#fff', fontSize: '0.65rem', fontWeight: 900 }}
+            sx={{ color: 'common.white', fontSize: '0.65rem', fontWeight: 900 }}
           >
             {team.shortName.slice(0, 3)}
           </Typography>

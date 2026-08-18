@@ -58,7 +58,7 @@ export default function TournamentConfigPanel({ teams, onStart }: TournamentConf
   return (
     <Card variant="outlined">
       <CardContent sx={{ p: 3 }}>
-        <Typography variant="h6" sx={{ fontWeight: 700 }} gutterBottom>
+        <Typography variant="h6" sx={{ fontWeight: 700, color: 'text.primary' }} gutterBottom>
           Configurar Torneo
         </Typography>
 

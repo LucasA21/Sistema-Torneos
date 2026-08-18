@@ -41,7 +41,7 @@ export default function MonteCarloPage() {
   return (
     <AppLayout>
       <Box sx={{ mb: 3 }}>
-        <Typography variant="h4" sx={{ fontWeight: 900 }} gutterBottom>
+        <Typography variant="h4" sx={{ fontWeight: 900, color: 'text.primary' }} gutterBottom>
           Simulación Masiva y Predicciones
         </Typography>
         <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 700 }}>

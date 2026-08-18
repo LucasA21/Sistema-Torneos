@@ -52,7 +52,7 @@ export default function TeamTable({
       {/* Cabecera con acciones */}
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
         <Box>
-          <Typography variant="h5" sx={{ fontWeight: 700 }}>
+          <Typography variant="h5" sx={{ fontWeight: 700, color: 'text.primary' }}>
             Equipos
           </Typography>
           <Typography variant="body2" color="text.secondary">
@@ -120,7 +120,9 @@ export default function TeamTable({
                         }}
                       />
                     )}
-                    <Typography sx={{ fontWeight: 600 }}>{team.name}</Typography>
+                    <Typography sx={{ fontWeight: 600, color: 'text.primary' }}>
+                      {team.name}
+                    </Typography>
                   </Box>
                 </TableCell>
 

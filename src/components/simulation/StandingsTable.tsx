@@ -3,6 +3,9 @@
 // src/components/simulation/StandingsTable.tsx
 // Tabla de posiciones con chips de zona de clasificación. MUI v9 compatible.
 
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import StarIcon from '@mui/icons-material/Star';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import Table from '@mui/material/Table';
@@ -23,11 +26,34 @@ interface StandingsTableProps {
   config: TournamentConfig;
 }
 
-const ZONE_CONFIG: Record<ZoneType, { label: string; color: string; tooltip: string }> = {
-  champion: { label: '🏆', color: ZONE_COLORS.champion, tooltip: 'Campeón' },
-  cup: { label: '⬛ Copa', color: ZONE_COLORS.cup, tooltip: 'Clasifica a Copa' },
-  neutral: { label: '', color: 'transparent', tooltip: '' },
-  relegation: { label: '⬇ Descenso', color: ZONE_COLORS.relegation, tooltip: 'Zona de Descenso' },
+const ZONE_CONFIG: Record<
+  ZoneType,
+  { label: string; icon: React.ReactElement; color: string; tooltip: string }
+> = {
+  champion: {
+    label: 'Campeón',
+    icon: <EmojiEventsIcon sx={{ fontSize: 14 }} />,
+    color: ZONE_COLORS.champion,
+    tooltip: 'Campeón del Torneo',
+  },
+  cup: {
+    label: 'Copa',
+    icon: <StarIcon sx={{ fontSize: 13 }} />,
+    color: ZONE_COLORS.cup,
+    tooltip: 'Clasifica a Copa Internacional',
+  },
+  neutral: {
+    label: '',
+    icon: <></>,
+    color: 'transparent',
+    tooltip: '',
+  },
+  relegation: {
+    label: 'Descenso',
+    icon: <ArrowDownwardIcon sx={{ fontSize: 13 }} />,
+    color: ZONE_COLORS.relegation,
+    tooltip: 'Zona de Descenso',
+  },
 };
 
 export default function StandingsTable({ standings, teams, config }: StandingsTableProps) {
@@ -39,23 +65,26 @@ export default function StandingsTable({ standings, teams, config }: StandingsTa
         Tabla de Posiciones
       </Typography>
 
-      {/* Leyenda de zonas */}
+      {/* Leyenda de zonas con íconos nativos sobrios */}
       <Box sx={{ display: 'flex', gap: 1, mb: 2, flexWrap: 'wrap' }}>
         <Chip
           size="small"
-          label="🏆 Campeón"
-          sx={{ bgcolor: ZONE_COLORS.champion, color: '#000', fontWeight: 700 }}
+          icon={<EmojiEventsIcon sx={{ fontSize: 14, color: 'common.black' }} />}
+          label="Campeón"
+          sx={{ bgcolor: ZONE_COLORS.champion, color: 'common.black', fontWeight: 700 }}
         />
         <Chip
           size="small"
+          icon={<StarIcon sx={{ fontSize: 13, color: 'common.white' }} />}
           label="Copa"
-          sx={{ bgcolor: ZONE_COLORS.cup, color: '#fff', fontWeight: 700 }}
+          sx={{ bgcolor: ZONE_COLORS.cup, color: 'common.white', fontWeight: 700 }}
         />
         <Chip size="small" label="Zona media" variant="outlined" />
         <Chip
           size="small"
-          label="⬇ Descenso"
-          sx={{ bgcolor: ZONE_COLORS.relegation, color: '#fff', fontWeight: 700 }}
+          icon={<ArrowDownwardIcon sx={{ fontSize: 13, color: 'common.white' }} />}
+          label="Descenso"
+          sx={{ bgcolor: ZONE_COLORS.relegation, color: 'common.white', fontWeight: 700 }}
         />
       </Box>
 
@@ -87,6 +116,8 @@ export default function StandingsTable({ standings, teams, config }: StandingsTa
                 config.relegationZone
               );
               const zoneInfo = ZONE_CONFIG[zone];
+              const isDarkText = zone === 'champion';
+              const chipColor = isDarkText ? 'common.black' : 'common.white';
 
               return (
                 <TableRow
@@ -128,14 +159,19 @@ export default function StandingsTable({ standings, teams, config }: StandingsTa
                       {zone !== 'neutral' && (
                         <Tooltip title={zoneInfo.tooltip}>
                           <Chip
+                            icon={zoneInfo.icon}
                             label={zoneInfo.label}
                             size="small"
                             sx={{
                               bgcolor: zoneInfo.color,
-                              color: zone === 'champion' ? '#000' : '#fff',
+                              color: chipColor,
                               fontWeight: 700,
                               height: 20,
-                              '& .MuiChip-label': { px: 1, fontSize: '0.65rem' },
+                              '& .MuiChip-icon': {
+                                color: `${chipColor} !important`,
+                                ml: 0.5,
+                              },
+                              '& .MuiChip-label': { px: 0.8, fontSize: '0.65rem' },
                             }}
                           />
                         </Tooltip>
@@ -155,7 +191,7 @@ export default function StandingsTable({ standings, teams, config }: StandingsTa
                     <Typography variant="body2">{entry.drawn}</Typography>
                   </TableCell>
                   <TableCell align="center">
-                    <Typography variant="body2" sx={{ color: 'error.main' }}>
+                    <Typography variant="body2" sx={{ color: 'error.main', fontWeight: 600 }}>
                       {entry.lost}
                     </Typography>
                   </TableCell>

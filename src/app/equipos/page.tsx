@@ -65,7 +65,7 @@ export default function EquiposPage() {
     <AppLayout>
       <Box sx={{ maxWidth: 1000, mx: 'auto' }}>
         <Box sx={{ mb: 4 }}>
-          <Typography variant="h4" sx={{ fontWeight: 900 }} gutterBottom>
+          <Typography variant="h4" sx={{ fontWeight: 900, color: 'text.primary' }} gutterBottom>
             Equipos del Torneo
           </Typography>
           <Typography variant="body1" color="text.secondary">

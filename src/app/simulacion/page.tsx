@@ -63,7 +63,7 @@ export default function SimulacionPage() {
   return (
     <AppLayout>
       <Box sx={{ mb: 3 }}>
-        <Typography variant="h4" sx={{ fontWeight: 900 }} gutterBottom>
+        <Typography variant="h4" sx={{ fontWeight: 900, color: 'text.primary' }} gutterBottom>
           Simulación Paso a Paso
         </Typography>
         <Typography variant="body2" color="text.secondary">

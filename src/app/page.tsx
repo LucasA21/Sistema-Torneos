@@ -23,7 +23,7 @@ const FEATURE_CARDS = [
       'Configurá los equipos de la Liga Argentina con sus ratings de habilidad y factores de localía.',
     href: '/equipos',
     icon: <GroupIcon sx={{ fontSize: 40 }} />,
-    color: '#1976D2',
+    color: 'primary.main',
     chip: '10 equipos predefinidos',
   },
   {
@@ -32,7 +32,7 @@ const FEATURE_CARDS = [
       'Simulá el torneo partido a partido o fecha a fecha y observá la tabla de posiciones en tiempo real.',
     href: '/simulacion',
     icon: <PlayCircleIcon sx={{ fontSize: 40 }} />,
-    color: '#00C853',
+    color: 'success.main',
     chip: 'Simulación en vivo',
   },
   {
@@ -41,7 +41,7 @@ const FEATURE_CARDS = [
       'Simulá miles de torneos completos para calcular las probabilidades de campeonato, copas y descenso de cada equipo.',
     href: '/montecarlo',
     icon: <BarChartIcon sx={{ fontSize: 40 }} />,
-    color: '#F9A825',
+    color: 'warning.main',
     chip: 'Hasta 10.000 simulaciones',
   },
 ];
@@ -51,14 +51,27 @@ export default function DashboardPage() {
     <AppLayout>
       {/* Hero */}
       <Box sx={{ mb: 4 }}>
-        <Typography variant="h3" sx={{ fontWeight: 900, lineHeight: 1.1 }} gutterBottom>
-          Simulador de
-          <br />
-          <Box component="span" sx={{ color: 'primary.main' }}>
+        <Typography
+          variant="h3"
+          sx={{ fontWeight: 900, lineHeight: 1.2, color: 'text.primary' }}
+          gutterBottom
+        >
+          Simulador de{' '}
+          <Box
+            component="span"
+            sx={(theme) => ({
+              background:
+                theme.palette.mode === 'dark'
+                  ? 'linear-gradient(90deg, #60A5FA 0%, #38BDF8 100%)'
+                  : 'linear-gradient(90deg, #1D4ED8 0%, #2563EB 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            })}
+          >
             Liga Deportiva
           </Box>
         </Typography>
-        <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 600 }}>
+        <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 650 }}>
           Plataforma de simulación interactiva paso a paso y proyecciones estadísticas para torneos
           deportivos.
         </Typography>
@@ -95,7 +108,13 @@ export default function DashboardPage() {
                   href={card.href}
                   fullWidth
                   aria-label={`ir a ${card.title}`}
-                  sx={{ bgcolor: card.color }}
+                  color={
+                    card.color === 'primary.main'
+                      ? 'primary'
+                      : card.color === 'success.main'
+                        ? 'success'
+                        : 'warning'
+                  }
                 >
                   Ir a {card.title}
                 </Button>

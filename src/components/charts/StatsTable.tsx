@@ -90,7 +90,7 @@ export default function StatsTable({ result, teams }: StatsTableProps) {
                         size="small"
                         sx={{
                           bgcolor: ZONE_COLORS.champion,
-                          color: '#000',
+                          color: 'common.black',
                           fontWeight: 900,
                           cursor: 'help',
                         }}

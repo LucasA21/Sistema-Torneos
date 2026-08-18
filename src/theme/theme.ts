@@ -1,35 +1,35 @@
 // src/theme/theme.ts
 // Configuración del tema MUI para el Sistema de Torneos Deportivos.
-// Paleta deportiva con soporte Dark/Light mode.
+// Paleta deportiva refinada y sobria con soporte completo Dark/Light mode.
 
 import { createTheme } from '@mui/material/styles';
 
 // ---------------------------------------------------------------------------
-// Paleta de colores deportiva
+// Paleta de colores deportiva sobria (sin tonos neón)
 // ---------------------------------------------------------------------------
 
 const SPORT_COLORS = {
   // Azules primarios
-  primaryDark: '#1565C0',
-  primaryMain: '#1976D2',
-  primaryLight: '#42A5F5',
+  primaryDark: '#1D4ED8',
+  primaryMain: '#2563EB',
+  primaryLight: '#60A5FA',
 
-  // Verdes secundarios (gol, victoria)
-  secondaryMain: '#00C853',
-  secondaryDark: '#00953D',
-  secondaryLight: '#69F0AE',
+  // Verdes sobrios (gol, victoria)
+  secondaryMain: '#10B981',
+  secondaryDark: '#059669',
+  secondaryLight: '#34D399',
 
-  // Zonas de clasificación
-  champion: '#FFD600', // Dorado campeón
-  cup: '#29B6F6', // Azul copa
-  neutral: '#546E7A', // Gris neutro
-  relegation: '#D32F2F', // Rojo descenso
+  // Zonas de clasificación (tonos mate refinados)
+  champion: '#F59E0B', // Dorado cálido
+  cup: '#2563EB', // Azul copa sofisticado
+  neutral: '#64748B', // Gris pizarra neutro
+  relegation: '#EF4444', // Rojo sobrio
 
   // Backgrounds dark
-  darkBg: '#0A0E1A',
-  darkSurface: '#111827',
-  darkCard: '#1A2035',
-  darkBorder: '#1E2D4A',
+  darkBg: '#0F172A',
+  darkSurface: '#1E293B',
+  darkCard: '#1E293B',
+  darkBorder: '#334155',
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -49,18 +49,25 @@ export const darkTheme = createTheme({
       dark: SPORT_COLORS.secondaryDark,
       light: SPORT_COLORS.secondaryLight,
     },
+    text: {
+      primary: '#F8FAFC',
+      secondary: '#94A3B8',
+      disabled: '#64748B',
+    },
     background: {
       default: SPORT_COLORS.darkBg,
       paper: SPORT_COLORS.darkCard,
     },
     error: {
       main: SPORT_COLORS.relegation,
+      light: '#F87171',
     },
     warning: {
-      main: '#F9A825',
+      main: '#F59E0B',
     },
     success: {
       main: SPORT_COLORS.secondaryMain,
+      light: '#34D399',
     },
   },
   typography: {
@@ -76,15 +83,48 @@ export const darkTheme = createTheme({
     borderRadius: 12,
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          color: '#F8FAFC',
+          backgroundColor: SPORT_COLORS.darkBg,
+        },
+      },
+    },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          color: 'inherit',
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundImage: 'none',
+          backgroundColor: SPORT_COLORS.darkCard,
+          color: '#F8FAFC',
+        },
+      },
+    },
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          color: 'inherit',
+        },
+      },
+    },
     MuiCard: {
       styleOverrides: {
         root: {
           backgroundImage: 'none',
+          backgroundColor: SPORT_COLORS.darkCard,
+          color: '#F8FAFC',
           border: `1px solid ${SPORT_COLORS.darkBorder}`,
           transition: 'transform 0.2s ease, box-shadow 0.2s ease',
           '&:hover': {
             transform: 'translateY(-2px)',
-            boxShadow: `0 8px 24px rgba(25, 118, 210, 0.15)`,
+            boxShadow: '0 8px 24px rgba(37, 99, 235, 0.15)',
           },
         },
       },
@@ -106,7 +146,7 @@ export const darkTheme = createTheme({
         contained: {
           boxShadow: 'none',
           '&:hover': {
-            boxShadow: '0 4px 12px rgba(25, 118, 210, 0.3)',
+            boxShadow: '0 4px 12px rgba(37, 99, 235, 0.3)',
           },
         },
       },
@@ -127,8 +167,8 @@ export const darkTheme = createTheme({
             fontSize: '0.75rem',
             textTransform: 'uppercase',
             letterSpacing: '0.08em',
-            color: SPORT_COLORS.primaryLight,
-            borderBottom: `2px solid ${SPORT_COLORS.primaryDark}`,
+            color: '#94A3B8',
+            borderBottom: `2px solid ${SPORT_COLORS.darkBorder}`,
           },
         },
       },
@@ -138,7 +178,7 @@ export const darkTheme = createTheme({
         root: {
           transition: 'background-color 0.15s ease',
           '&:hover': {
-            backgroundColor: 'rgba(25, 118, 210, 0.06)',
+            backgroundColor: 'rgba(51, 65, 85, 0.5)',
           },
         },
       },
@@ -149,6 +189,7 @@ export const darkTheme = createTheme({
           backgroundColor: SPORT_COLORS.darkSurface,
           backgroundImage: 'none',
           borderRight: `1px solid ${SPORT_COLORS.darkBorder}`,
+          color: '#F8FAFC',
         },
       },
     },
@@ -157,6 +198,7 @@ export const darkTheme = createTheme({
         root: {
           backgroundImage: 'none',
           backgroundColor: SPORT_COLORS.darkSurface,
+          color: '#F8FAFC',
           borderBottom: `1px solid ${SPORT_COLORS.darkBorder}`,
         },
       },
@@ -179,18 +221,25 @@ export const lightTheme = createTheme({
     secondary: {
       main: SPORT_COLORS.secondaryDark,
     },
+    text: {
+      primary: '#0F172A',
+      secondary: '#475569',
+      disabled: '#94A3B8',
+    },
     background: {
-      default: '#F0F4F8',
+      default: '#F8FAFC',
       paper: '#FFFFFF',
     },
     error: {
       main: SPORT_COLORS.relegation,
+      light: '#DC2626',
     },
     warning: {
-      main: '#F57F17',
+      main: '#D97706',
     },
     success: {
       main: SPORT_COLORS.secondaryDark,
+      light: '#059669',
     },
   },
   typography: {
@@ -206,15 +255,48 @@ export const lightTheme = createTheme({
     borderRadius: 12,
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          color: '#0F172A',
+          backgroundColor: '#F8FAFC',
+        },
+      },
+    },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          color: 'inherit',
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundImage: 'none',
+          backgroundColor: '#FFFFFF',
+          color: '#0F172A',
+        },
+      },
+    },
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          color: 'inherit',
+        },
+      },
+    },
     MuiCard: {
       styleOverrides: {
         root: {
-          boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-          border: '1px solid rgba(0,0,0,0.06)',
+          backgroundColor: '#FFFFFF',
+          color: '#0F172A',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+          border: '1px solid #E2E8F0',
           transition: 'transform 0.2s ease, box-shadow 0.2s ease',
           '&:hover': {
             transform: 'translateY(-2px)',
-            boxShadow: '0 8px 24px rgba(25, 118, 210, 0.12)',
+            boxShadow: '0 8px 24px rgba(37, 99, 235, 0.12)',
           },
         },
       },
@@ -244,8 +326,8 @@ export const lightTheme = createTheme({
             fontSize: '0.75rem',
             textTransform: 'uppercase',
             letterSpacing: '0.08em',
-            color: SPORT_COLORS.primaryDark,
-            backgroundColor: '#F0F4F8',
+            color: '#475569',
+            backgroundColor: '#F1F5F9',
           },
         },
       },
@@ -255,8 +337,28 @@ export const lightTheme = createTheme({
         root: {
           transition: 'background-color 0.15s ease',
           '&:hover': {
-            backgroundColor: 'rgba(25, 118, 210, 0.04)',
+            backgroundColor: 'rgba(37, 99, 235, 0.04)',
           },
+        },
+      },
+    },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: '#FFFFFF',
+          backgroundImage: 'none',
+          borderRight: '1px solid #E2E8F0',
+          color: '#0F172A',
+        },
+      },
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backgroundImage: 'none',
+          backgroundColor: '#FFFFFF',
+          color: '#0F172A',
+          borderBottom: '1px solid #E2E8F0',
         },
       },
     },

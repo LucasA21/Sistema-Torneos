@@ -17,7 +17,14 @@ export default function AppLayout({ children }: AppLayoutProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        minHeight: '100vh',
+        bgcolor: 'background.default',
+        color: 'text.primary',
+      }}
+    >
       <Navbar onMenuClick={() => setMobileOpen(true)} />
       <Sidebar mobileOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
 
@@ -29,6 +36,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
           minWidth: 0,
           minHeight: '100vh',
           bgcolor: 'background.default',
+          color: 'text.primary',
         }}
       >
         <Toolbar /> {/* Espaciado para el AppBar fijo */}
