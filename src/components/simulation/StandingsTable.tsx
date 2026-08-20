@@ -95,10 +95,10 @@ export default function StandingsTable({ standings, teams, config }: StandingsTa
               <TableCell sx={{ width: 40 }}>#</TableCell>
               <TableCell>Equipo</TableCell>
               <TableCell align="center">PJ</TableCell>
+              <TableCell align="center">PG</TableCell>
+              <TableCell align="center">PE</TableCell>
+              <TableCell align="center">PP</TableCell>
               <TableCell align="center">G</TableCell>
-              <TableCell align="center">E</TableCell>
-              <TableCell align="center">P</TableCell>
-              <TableCell align="center">GF</TableCell>
               <TableCell align="center">GC</TableCell>
               <TableCell align="center">DG</TableCell>
               <TableCell align="center" sx={{ fontWeight: 900 }}>

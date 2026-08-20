@@ -6,6 +6,7 @@
 // import BarChartIcon from '@mui/icons-material/BarChart';
 import GroupIcon from '@mui/icons-material/Group';
 import HomeIcon from '@mui/icons-material/Home';
+import InfoIcon from '@mui/icons-material/InfoOutlined';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -25,6 +26,7 @@ const NAV_ITEMS = [
   { label: 'Inicio', href: '/', icon: <HomeIcon /> },
   { label: 'Equipos', href: '/equipos', icon: <GroupIcon /> },
   { label: 'Simulación', href: '/simulacion', icon: <PlayCircleIcon /> },
+  { label: 'Información', href: '/informacion', icon: <InfoIcon /> },
   // Oculto: { label: 'Simulación Masiva', href: '/montecarlo', icon: <BarChartIcon /> },
 ];
 

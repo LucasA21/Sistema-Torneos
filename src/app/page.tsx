@@ -15,7 +15,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
 import { useTournamentContext } from '@/app/tournament-context';
-import ModelInfoCard from '@/components/common/ModelInfoCard';
+import InfoBannerCard from '@/components/common/InfoBannerCard';
 import AppLayout from '@/components/layout/AppLayout';
 
 const FEATURE_CARDS = [
@@ -168,7 +168,7 @@ export default function DashboardPage() {
       </Grid>
 
       {/* Explicación del modelo */}
-      <ModelInfoCard />
+      <InfoBannerCard />
     </AppLayout>
   );
 }

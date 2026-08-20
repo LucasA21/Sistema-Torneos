@@ -130,7 +130,7 @@ export default function ChampionDialog({
             </Grid>
             <Grid size={{ xs: 3 }}>
               <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
-                GF
+                G
               </Typography>
               <Typography variant="subtitle1" component="p" sx={{ fontWeight: 700 }}>
                 {championEntry.goalsFor}

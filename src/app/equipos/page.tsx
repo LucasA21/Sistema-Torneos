@@ -12,7 +12,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useTournamentContext } from '@/app/tournament-context';
-import ModelInfoCard from '@/components/common/ModelInfoCard';
 import AppLayout from '@/components/layout/AppLayout';
 import TeamFormDialog from '@/components/tournament/TeamFormDialog';
 import TeamTable from '@/components/tournament/TeamTable';
@@ -116,11 +115,6 @@ export default function EquiposPage() {
             onReset={resetToDefaults}
             onRatingChange={(id, rating) => updateTeam(id, { rating })}
           />
-        </Box>
-
-        {/* Explicación del Modelo de Simulación */}
-        <Box sx={{ mb: 4 }}>
-          <ModelInfoCard />
         </Box>
 
         {/* Panel de configuración del torneo */}
