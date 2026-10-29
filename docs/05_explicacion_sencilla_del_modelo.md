@@ -1,15 +1,15 @@
-# Explicación Sencilla del Modelo de Simulación ⚽🎲
+# Explicación Sencilla del Modelo de Simulación
 
 Esta guía explica en **palabras simples y cotidianas** (sin términos académicos ni fórmulas complejas) exactamente cómo funciona el motor matemático del simulador de torneos.
 
 ---
 
-## 💡 Los 4 Pasos para Simular un Partido
+## Los 4 Pasos para Simular un Partido
 
 Para simular un partido entre dos equipos (por ejemplo, **Local** vs **Visitante**), el sistema realiza **4 pasos consecutivos**:
 
 ```
-[ 1. Rating y Localía ] ➔ [ 2. El Día del Partido (Ruido) ] ➔ [ 3. Goles Esperados (λ) ] ➔ [ 4. Azar de los Goles (Poisson) ] ➔ 🏆 Marcador Final
+[ 1. Rating y Localía ] -> [ 2. El Día del Partido (Ruido) ] -> [ 3. Goles Esperados (λ) ] -> [ 4. Azar de los Goles (Poisson) ] -> Marcador Final
 ```
 
 ---
@@ -74,14 +74,14 @@ El sistema mete la mano en la bolsita de Poisson para cada equipo:
 * Sacó canica para el **Local** (promedio $1.00$) $\rightarrow$ Sale **0 goles**.
 * Sacó canica para el **Visitante** (promedio $1.08$) $\rightarrow$ Sale **2 goles**.
 
-### 🏁 Marcador Final del Partido:
+### Marcador Final del Partido:
 $$\mathbf{\text{Local } 0 - 2 \text{ Visitante}}$$
 
 ¡El equipo con menor rating (65) le ganó de visitante al favorito (85)!
 
 ---
 
-## 🔮 ¿Qué es la Simulación de Monte Carlo?
+## ¿Qué es la Simulación de Monte Carlo?
 
 Si juegas un torneo una sola vez, puede que el equipo humilde salga campeón por un golpe de suerte descomunal.
 
